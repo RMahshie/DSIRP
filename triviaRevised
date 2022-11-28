@@ -1,0 +1,26 @@
+import random
+
+questions2 = {"1" : ["What is the most consumed drink in the world (except water)?", "A) Soda \nB) Tea \nC) Juice \nD) Energy drinks", "b"], "2" : ["What was the first toy to be advertised on television?", "A) Mr. Potato Head \nB) Barbie \nC) Hot Wheels \nD) Tinker Toys", "a"], "3" : ["How many US states are there?", "A) 15 \nB) 51 \nC) 50 \nD) 143", "c"], "4" : ["In which country is the Taj Mahal?", "A) USA \nB) India \nC) Russia \nD) Egypt", "b"], "5" : ["Who was the US's second president?", "A) John Quincy Adams \nB) Abraham Lincoln \nC) Donald Trump \nD) John Adams", "d"],"6" : ["Who is on the $100 bill in US currency?”,”A) George Washington \nB) Thomas Jefferson \nC) Benjamin Franklin \nD) Alexander Hamilton", "c"], "7" : ["How many letters are in this question","A) 31 \nB) 32 \nC) 38 \nD) it's not a question", "d"], "8" : ["How many grandchildren did Queen Elizabth II have?","A) 4 \nB) 8 \nC) 6 \nC) 0", "b"], "9" : ["What sport is dubbed the 'king of sports'?","A) Soccer \nB) Football\nC) Golf\nD) Baseball", "a"], "10" : ["What is the capital of Europe?","A) London\nB) Paris\nC) There is none\nD) Washington DC", "c"], "11" : ["What is the opposite of white?","A) Black\nB) Yellow\nC) Orange\nD) Red", "a"], "12" : ["Mary's mother had five children; Nana, Nene, Nini, and Nono. Who is the fifth child?","A) Geoffrey\nB) Mary\nC) Nunu\nD) Alexis", "b"], "13" : ["What is Microsoft's version of Google Docs?","A) Excel \nB) Word\nC) Onenote\nD) Powerpoint)", "b"], "14" : ["Where was the Statue of Liberty made?","A) Argentina\nB) United States\nC) France\nD) United Kingdom", "c"], "15" : ["What is the last letter of the Greek alphabet?","A) Sigma\nB) Omega\nC) Alpha\nD) PI", "b"], "16" : ["What country invented ice cream?","A) Germany\nB) England\nC) United States\nD) China", "d"], "17" : ["What animal is on the Porche logo?","A) Horse\nB) Tiger\nC) Elephant\nD) Panther", "a"], "18" : ["What is the correct spelling?","A) Embaras\nB) Embarrass\nC) Embbarass\nD) Emmbaras", "b"], "19" : ["What is cynophobia?","A) Fear of mice\nB) Fear of dogs\nC) Fear of squids\nD) Fear of sea animals", "b"], "20" : ["How many holes are there in a t-shirt?","A) 0 (because it's new)\nB) As many as you can tear\nC) 4\nD) 12", "c"], "21" : ["What does the first 'w' in a URL stand for?","A) Web\nB) World\nC) Wonder\nD) Wednesday", "b"], "22" : ["What element is represented by the symbol Au?","A) Silver\nB) Audi\nC) Gold\nD) Titanium", "c"], "23" : ["Which planet is the biggest?","A) Earth\nB) Mars\nC) Saturn\nD) Venus", "c"], "24" : ["What shape are stop signs?","A) Hexagon\nB) Pentagon\nC) Pentagram\nD) Octagon", "c"], "25" : ["What does D&D stand for?","A) Dice and Doom\nB) Dice and Demons\nC) Dungeons and Dragons\nD) Doors and Devils", "c"]}
+
+
+QLeft = int(5)
+keyList = list(questions2.keys())
+print(len(keyList))
+
+while QLeft >= 1:
+    questionNum = int(random.randrange(0, len(keyList)-1))
+    print(questions2[keyList[questionNum]][0])
+    print(questions2[keyList[questionNum]][1])
+    answer = input()
+    if str(answer) == str(questions2[keyList[questionNum]][2]):
+        QLeft -= 1
+        print("\nYou got it right! \nOnly " + str(QLeft) + " questions left!\n")
+        del keyList[questionNum]
+    else:
+        print ("\nOops! Sorry, you didn't get that right. The correct answer was " + str(questions2[keyList[questionNum]][2]) + ", and you chose " + str(answer) +". Try again!\n")
+    
+    if(len(keyList)) <= 1:
+        print("Game over you lose :(")
+        break
+
+print ("You won! You get an imaginary trophy on the winners' shelf! Come play again!")
