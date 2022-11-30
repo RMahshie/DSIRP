@@ -2,5 +2,5 @@
 2. cubic
 3. it's linear
 4. which ever is a higher magnitue is the order
-5. f~1~ + f~2~ = O(g + h)
+5. f<sub>1<sub> + f~2~ = O(g + h)
 6. f~1~ x f~2~ = O(gh)
