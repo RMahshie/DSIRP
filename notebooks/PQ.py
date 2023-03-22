@@ -23,7 +23,7 @@ def new():
     """
     return PQ()
 
-def insert(val, pq):
+def insert(pq, value, Append):
     
     """
     >>> pq = new()
@@ -36,24 +36,37 @@ def insert(val, pq):
     >>> pq.size()
     2
     """
-    pq.data.append(val)
-
-
-
-def printElements(pq):
-    '''
+   
+    storage = 0
     
-    >>> pq = new()
-    >>> insert(7, pq)
+    if Append:
+        print("before adding value ", pq.data)
+        pq.data.append(value)
+        print("after adding value: ", pq.data)
     
-    >>> pq.size()
+    valueI = pq.data.index(value)
+    parent = pq.data[(pq.data.index(value)-1)//2]
+    parentI = (pq.data.index(value)-1)//2
     
-    '''
-    print(pq.data)
+    print("value: ", value)
+    print("parent: ", parent)
+    if pq.data.index(value) == 0:
+        return pq.data
+    
+    elif value <= parent:
+        
+        pq.data[parentI], pq.data[valueI] =  pq.data[valueI], pq.data[parentI]
+        
+        print("after swap: ", pq.data)
+        insert(pq, value, False)
+    
+    return 'Sorted Heap: ', pq.data
 
 pq = new()
-insert(7, pq)
-printElements(pq)
+insert(pq, 7, True)
+insert(pq, 8, True)
+insert(pq, 5, True)
+insert(pq, 1, True)
 
 
 if __name__ == "__main__":
