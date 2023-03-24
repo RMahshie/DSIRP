@@ -57,14 +57,15 @@ def insert(pq, value, Append):
 
 
 def dm(pq, value, Assign):
+    
     if Assign:
         pq.data[0] = value
         pq.data.pop()
 
     leftParent = (pq.data.index(value)*2)+1
     rightParent = (pq.data.index(value)*2)+2
-    print("pq.data: ", pq.data)
     
+
     if (leftParent) < len(pq.data):
         p1 = pq.data[(pq.data.index(value)*2)+1]
         p1Index = (pq.data.index(value)*2)+1
@@ -75,7 +76,7 @@ def dm(pq, value, Assign):
         return pq.data
     
     left = p1<p2
-    print()
+
     if value <= p1:
         return pq.data
     elif left and (p1Index) < len(pq.data) :
@@ -87,19 +88,21 @@ def dm(pq, value, Assign):
     else:
         return pq.data
 
-    
+def fm(pq):
+    '''
+    >>> pq = new()
+    >>> insert(pq, 3, True)
+    [3]
+    >>> insert(pq, 7, True)
+    [3, 7]
+    >>> insert(pq, 1, True)
+    [1, 7, 3]
+    >>> fm(pq)
+    1
+    '''
+    return pq.data[0]
 
-pq = new()
-insert(pq, 7, True)
-insert(pq, 6, True)
-insert(pq, 5, True)
-insert(pq, 1, True)
-insert(pq, 3, True)
-insert(pq, 4, True)
-insert(pq, 2, True)
-print(pq.data)
-dm(pq, pq.data[len(pq.data)-1], True)
-print(pq.data)
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
