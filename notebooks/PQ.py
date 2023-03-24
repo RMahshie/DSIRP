@@ -57,7 +57,17 @@ def insert(pq, value, Append):
 
 
 def dm(pq, value, Assign):
-    
+    '''
+    >>> pq = new()
+    >>> insert(pq, 3, True)
+    [3]
+    >>> insert(pq, 7, True)
+    [3, 7]
+    >>> insert(pq, 1, True)
+    [1, 7, 3]
+    >>> dm(pq, pq.data[len(pq.data)-1], True)
+    [3, 7]
+    '''
     if Assign:
         pq.data[0] = value
         pq.data.pop()
