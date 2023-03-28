@@ -23,15 +23,15 @@ def new():
     """
     return PQ()
 
-def insert(pq, value, Append):
+def insert(pq, value, Append = True):
     
     """
     >>> pq = new()
     >>> pq.size()
     0
-    >>> insert(pq, 7, True)
+    >>> insert(pq, 7)
     [7]
-    >>> insert(pq, 6, True)
+    >>> insert(pq, 6)
     [6, 7]
     """
    
@@ -56,18 +56,21 @@ def insert(pq, value, Append):
     return pq.data
 
 
-def dm(pq, value, Assign):
+def dm(pq, value = -1, Assign = True):
     '''
     >>> pq = new()
-    >>> insert(pq, 3, True)
+    >>> insert(pq, 3)
     [3]
-    >>> insert(pq, 7, True)
+    >>> insert(pq, 7)
     [3, 7]
-    >>> insert(pq, 1, True)
+    >>> insert(pq, 1)
     [1, 7, 3]
-    >>> dm(pq, pq.data[len(pq.data)-1], True)
+    >>> dm(pq)
     [3, 7]
     '''
+    if value == -1:
+        value = pq.data[len(pq.data)-1]
+    
     if Assign:
         pq.data[0] = value
         pq.data.pop()
@@ -87,7 +90,7 @@ def dm(pq, value, Assign):
     
     left = p1<p2
 
-    if value <= p1:
+    if value <= p1 and left:
         return pq.data
     elif left and (p1Index) < len(pq.data) :
             pq.data[p1Index], pq.data[pq.data.index(value)] = pq.data[pq.data.index(value)], pq.data[p1Index]
@@ -101,16 +104,31 @@ def dm(pq, value, Assign):
 def fm(pq):
     '''
     >>> pq = new()
-    >>> insert(pq, 3, True)
+    >>> insert(pq, 3)
     [3]
-    >>> insert(pq, 7, True)
+    >>> insert(pq, 7)
     [3, 7]
-    >>> insert(pq, 1, True)
+    >>> insert(pq, 1)
     [1, 7, 3]
     >>> fm(pq)
     1
     '''
     return pq.data[0]
+
+pq = new()
+
+insert(pq, 7)
+insert(pq, 1)
+insert(pq, 4)
+insert(pq, 8)
+insert(pq, 9)
+insert(pq, 2)
+insert(pq, 3)
+insert(pq, 6)
+insert(pq, 5,)
+print(pq.data)
+dm(pq)
+print(pq.data)
 
 
 if __name__ == "__main__":
