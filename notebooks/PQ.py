@@ -1,9 +1,16 @@
+import networkx as nx
+from EoN import hierarchy_pos
+
+
+
 class PQ:
+
     """
-      >>> pq = new()
-      >>> pq.size()
-      0
+    >>> pq = new()
+    >>> pq.size()
+    0
     """
+
     def __init__(self):
         self.data = []
 
@@ -15,27 +22,33 @@ class PQ:
 
 
 def new():
-        
+
     """
     >>> pq = new()
     >>> isinstance(pq, PQ)
     True
+    >>> pq.size()
+    0
     """
+
+
     return PQ()
 
 def insert(pq, value, Append = True):
-    
-    """
+   
+    '''
     >>> pq = new()
-    >>> pq.size()
-    0
     >>> insert(pq, 7)
     [7]
+    >>> pq.size()
+    1
     >>> insert(pq, 6)
     [6, 7]
-    """
-   
-    storage = 0
+    >>> pq.size()
+    2
+
+    '''
+    
     
     if Append:
         pq.data.append(value)
@@ -57,17 +70,11 @@ def insert(pq, value, Append = True):
 
 
 def dm(pq, value = -1, Assign = True):
-    '''
-    >>> pq = new()
-    >>> insert(pq, 3)
-    [3]
-    >>> insert(pq, 7)
-    [3, 7]
-    >>> insert(pq, 1)
-    [1, 7, 3]
-    >>> dm(pq)
-    [3, 7]
-    '''
+    
+   
+    if len(pq.data) == 2:
+        pq.data.pop()
+        return pq.data
     if value == -1:
         value = pq.data[len(pq.data)-1]
     
@@ -75,60 +82,99 @@ def dm(pq, value = -1, Assign = True):
         pq.data[0] = value
         pq.data.pop()
 
-    leftParent = (pq.data.index(value)*2)+1
-    rightParent = (pq.data.index(value)*2)+2
+    if len(pq.data) < 2:
+        leftChild = (pq.data.index(value)*2)+1
+    else:  
+        leftChild = (pq.data.index(value)*2)+1
+        rightChild = (pq.data.index(value)*2)+2
     
-
-    if (leftParent) < len(pq.data):
-        p1 = pq.data[(pq.data.index(value)*2)+1]
-        p1Index = (pq.data.index(value)*2)+1
-    if (rightParent) < len(pq.data):
-        p2 = pq.data[(pq.data.index(value)*2)+2]
-        p2Index = (pq.data.index(value)*2)+2
+        
+    if (rightChild) < len(pq.data):
+        c1 = pq.data[leftChild]
+        c2 = pq.data[rightChild]
     else:
         return pq.data
     
-    left = p1<p2
+    left = c1<c2
 
-    if value <= p1 and left:
+    if value <= c1 and left:
         return pq.data
-    elif left and (p1Index) < len(pq.data) :
-            pq.data[p1Index], pq.data[pq.data.index(value)] = pq.data[pq.data.index(value)], pq.data[p1Index]
+    elif rightChild < len(pq.data):
+        if left:
+            pq.data[leftChild], pq.data[pq.data.index(value)] = pq.data[pq.data.index(value)], pq.data[leftChild]
             dm(pq, value, False)
-    elif not left and (p2Index) < len(pq.data):
-        pq.data[p2Index], pq.data[pq.data.index(value)] = pq.data[pq.data.index(value)], pq.data[p2Index]
-        dm(pq, value, False)
-    else:
-        return pq.data
+        elif not left:
+            pq.data[rightChild], pq.data[pq.data.index(value)] = pq.data[pq.data.index(value)], pq.data[rightChild]
+            dm(pq, value, False)
+        else:
+            return pq.data
+
+    
 
 def fm(pq):
+    
     '''
     >>> pq = new()
-    >>> insert(pq, 3)
-    [3]
     >>> insert(pq, 7)
-    [3, 7]
-    >>> insert(pq, 1)
-    [1, 7, 3]
-    >>> fm(pq)
+    [7]
+    >>> pq.size()
     1
+    >>> insert(pq, 6)
+    [6, 7]
+    >>> insert(pq, 3)
+    [3, 7, 6]
+    >>> pq.size()
+    3
+    >>> dm(pq)
+    [6, 7]
+    >>> insert(pq, 3)
+    [3, 7, 6]
+    >>> fm(pq)
+    3
     '''
     return pq.data[0]
+    
+
+def heapSort(list):
+    for item in list:
+        insert(pq, item)
+    print(pq.data)
+        
+    
+
+def make_dag(heap):
+    """Make a NetworkX graph that represents the heap."""
+    G = nx.DiGraph()
+    
+    for i in range(1, len(heap)):
+        parent = (i-1)//2
+        G.add_edge(parent, i)
+    
+    return G
+
+
+def draw_heap(heap):
+    G = make_dag(heap)
+    pos = hierarchy_pos(G)
+    labels = dict(enumerate(heap))
+    nx.draw(G, pos, labels=labels, alpha=0.4)
+
+
+##list = [2, 5, 6, 8, 7, 4, 3, 1, 9]
+##pq = new()
+##heapSort(list)
+##draw_heap(pq.data)
 
 pq = new()
-
-insert(pq, 7)
-insert(pq, 1)
-insert(pq, 4)
-insert(pq, 8)
-insert(pq, 9)
-insert(pq, 2)
-insert(pq, 3)
+insert(pq, 5)
 insert(pq, 6)
-insert(pq, 5,)
-print(pq.data)
+insert(pq, 7)
+
+dm(pq)
+dm(pq)
 dm(pq)
 print(pq.data)
+
 
 
 if __name__ == "__main__":
