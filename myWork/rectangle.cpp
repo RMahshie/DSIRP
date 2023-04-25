@@ -1,34 +1,32 @@
 #include <iostream>
 using namespace std;
 
+struct Point {
+    double x, y;
+};
+
 struct Rectangle {
-    point corner;
+    Point corner;
     double width, height;
 };
 
-void print_point(Point p)
-{
-    cout << "(" << p.x << ", " << p.y << ")" << endl;
+Point lowerRight(Rectangle& rect) {
+	double x = rect.corner.x + rect.width;
+	double y = rect.corner.y - rect.height;
+	Point result = {x,y};
+	return result;
 }
 
-point  lowerRight(Rectangle& box) {
-	
-	double x = box.corner.x + box.width;
-    	double y = box.corner.y - box.height;
-    	point result = {x, y};
-    	return result;
-
+double findArea(Rectangle& rect) {
+	double area = rect.width * rect.height;
+	return area;
 }
-
 
 int main() {
-
-
-	Rectangle box = {{0.0, 0.0}, 100.0, 200.0};
-	point right = lowerRight(box);
-	print_point(right);
+	Rectangle rect = {{10, 10}, 10, 10};
+	Point p = lowerRight(rect);	
+	cout << "(" << p.x << ", " << p.y << ")" << endl;
+	double area = findArea(rect);
+	cout << area << endl;
 	return 0;
-
-
-
 }
