@@ -4,21 +4,20 @@ using namespace std;
 struct Time {
     int hour, minute;
     double second;
+    void print();
+    void increment(double secs);
 };
 
-void increment(Time& time, double secs)
-{
-    time.second += secs;
+double convert_to_seconds(const Time& t)
+#include <iostream>
+using namespace std;
 
-    while (time.second >= 60.0) {
-        time.second -= 60.0;
-        time.minute += 1;
-    }
-    while (time.minute >= 60) {
-        time.minute -= 60;
-        time.hour += 1;
-    }
-}
+struct Time {
+    int hour, minute;
+    double second;
+    void print();
+    void increment(double secs);
+};
 
 double convert_to_seconds(const Time& t)
 {
@@ -27,8 +26,6 @@ double convert_to_seconds(const Time& t)
 
     return seconds;
 }
-
-
 
 Time make_time(double secs)
 {
@@ -42,17 +39,36 @@ Time make_time(double secs)
     return time;
 }
 
-void print_time(Time& t) {
-    cout << t.hour << ":" << t.minute << ":" << t.second << endl;
+void increment(Time& time, double secs)
+{
+    time.second += secs;
+    time = make_time(convert_to_seconds(time));
 }
 
-int main() {
-	Time time = {4, 5, 6};
-	double seconds = convert_to_seconds(time);
-	seconds += 300;
-	time = make_time(seconds);
-	print_time(time);
+void Time::increment(double secs)
+{
+    second += secs;
+    int minutes = hour * 60 + minute;
+    double seconds = minutes * 60 + second;
+
+    hour = int(seconds / 3600.0);
+    seconds -= hour * 3600.0;
+    minute = int(seconds / 60.0);
+    seconds -= minute * 60;
+    second = seconds;
+}
+
+Time::Time(int h, int m, double s)
+{
+  hour = h; minute = m; second = s;
+}
+
+int main () {
+	Time(int h, int m, int s);
+	increment(time, 142.2);
+	cout << time.hour << "hr" << time.minute << "min" << time.second << "s" << endl;
+	time.increment(500.2);
+	cout << time.hour << "hr" << time.minute << "min" << time.second << "s" << endl;
+
 	return 0;
-	
-
-}
+}{
